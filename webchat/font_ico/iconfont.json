@@ -1,0 +1,44 @@
+{
+  "id": "2420929",
+  "name": "im_webchat",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "448547",
+      "name": "发现",
+      "font_class": "faxian",
+      "unicode": "e6b1",
+      "unicode_decimal": 59057
+    },
+    {
+      "icon_id": "1089283",
+      "name": "我",
+      "font_class": "buoumaotubiao03",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "1474970",
+      "name": "机器人",
+      "font_class": "jiqiren1",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "18099233",
+      "name": "通讯录",
+      "font_class": "tongxunlu",
+      "unicode": "ef27",
+      "unicode_decimal": 61223
+    },
+    {
+      "icon_id": "15644336",
+      "name": "机器人",
+      "font_class": "jiqiren",
+      "unicode": "e6c0",
+      "unicode_decimal": 59072
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+.title{
+	background-color: #00A1D6;
+}
+.title-color{
+	color:white;
+}
+
+.mui-bar-tab .mui-tab-item.mui-active{
+	color:#00A1D6;
+}
+.font-style{
+	line-height: 42px;
+}
+* { 
+    touch-action: pan-y;  
+}

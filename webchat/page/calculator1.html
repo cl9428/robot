@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    
+<link href="../css/mui.min.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+<style type="text/css">
+*{word-wrap:break-word;;outline:none; -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;} 
+body,ul,ol,p,h1,h2,h3,h4,dl,dd,form,input,textarea,select{margin:0px;padding:0px;}
+body{font-size:12px;font-family:"微软雅黑";color:#000;background:#303539;overflow:hidden;}
+img{border:none;}
+a{text-decoration:none;}
+ul,li{list-style:none;}
+input,select,option,textarea{outline:none;}
+textarea{overflow:auto;resize:none;vertical-align:top;}
+.clear:after{content:"";display:block;clear:both;}
+.hzline3{overflow:hidden;text-overflow:ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;}
+.hzline2{overflow:hidden;text-overflow:ellipsis;display: -webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.hzline1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.hide{display:none;}
+.show{display:block;}
+
+.cont{width:100%;margin:0 auto;max-width:640px;}
+/*head start*/
+#head{width:94%;height:33px;position:absolute;top:0;left:0;padding:0 3%;}
+#head:after{content:"";display:block;width:100%;height:1px;transform:scaleY(.2);position:absolute;bottom:0;right:0;background:#fff;}
+#head .h_nav{height:23px;padding:5px 0;}
+#head .h_nav span{color:#fff;display:inline-block;font-size:13px;margin-right:6px;border-radius:20px;padding:3px 8px 0;line-height:20px;}
+#head .h_nav span:nth-last-child(1){float:right;}
+#head .h_nav span.on{background:#909599;}
+/*head end*/
+
+/*contbox start*/
+
+.contbox{width:100%;height:calc( 100% - 33px );position:absolute;bottom:0;left:0;overflow:hidden;display:none;}
+#contbox .contbox.show{display:block;}
+
+.contbox .h_cont{height:127px;color:#fff;position:relative;}
+.contbox .h_cont .h_cbox{position:absolute;bottom:0;left:0;text-align:right;width:96%;padding: 0 3%;}
+.contbox .h_cont .h_cbox .h_cline{}
+.contbox .h_cont .h_cbox .h_cline:nth-child(1){font-size:16px;line-height:37px;}
+.contbox .h_cont .h_cbox .h_cline:nth-child(2){font-size:24px;line-height:40px;}
+.contbox .h_cont .h_cbox input{background: transparent;line-height:80px;font-size:48px;text-align: right;width: 96%;border:none;margin:0 auto;display: block;}
+.contbox .c_contbtn{position:relative;}
+.contbox .c_contbtn li{width:25%;text-align:center;float:left;font-size:40px;color:#fff;position:relative;}
+.contbox .c_contbtn li:nth-last-child(1){float:right;background:#E56D42;}
+.contbox .c_contbtn li:before{content:"";display:block;width:100%;height:1px;transform:scaleY(.2);position:absolute;top:0;left:0;background:#fff;}
+.contbox .c_contbtn li:after{content:"";display:block;width:1px;height:100%;transform:scaleX(.2);position:absolute;top:0;right:0;background:#fff;}
+.contbox .c_contbtn li:nth-child(4n+4):after{content:"";background:transparent;}
+.contbox .c_contbtn li:nth-last-child(1):before{content:"";background:transparent;}
+/*loanbox start*/
+
+.contbox .loanbox{height:95%;padding:20px 3% 0;color:#fff;}
+.contbox .loanbox .l_line{line-height:50px;font-size:15px;height:50px;}
+.contbox .loanbox > .l_line > .l_ltit{width:80px;display:inline-block;text-align:right;}
+.contbox .loanbox .l_line input{height:30px;display:inline-block;width:calc(80% - 80px);background:transparent;border:none;border-bottom:1px solid #E56D42;color:#fff;font-size:18px;}
+.contbox .loanbox .l_line .l_lebel{margin-right:10px;}
+.contbox .loanbox .l_line .l_lebel i{width:20px;height:20px;display:inline-block;border-radius:50%;border:1px solid #ddd;vertical-align:top;margin:14px 5px 0 0 ;}
+.contbox .loanbox .l_line .l_lebel i:after{content:"";display:block;width:10px;height:10px;background:#fff;border-radius:50%;margin:5px auto;}
+.contbox .loanbox .l_line .l_lebel i.on{background:#E56D42;}
+.contbox .loanbox  #l_count{display:block;color:#fff;font-size:18px;text-align:center;width:100%;background:#E56D42;line-height:45px;margin-top:30px;}
+.contbox .loanbox #benjinbox{overflow: auto;}
+.contbox .loanbox #benjinbox .l_line{text-align: center;}
+/*loanbox end*/
+
+	/*window start 295*/
+#window{width:70%;max-height:85%;position:fixed;top:7.5%;left:15%;z-index:10;background:#909599;overflow:auto;border-radius:5px;display:none;}
+#wbg{width:100%;height:100%;position:fixed;top:0;left:0;z-index:9;background:rgba(0,0,0,.4);display:none;}
+#window .selbox li{line-height:45px;text-align:center;font-size:15px;color:#fff;}
+#window .selbox li:nth-child(n+2){border-top:1px solid #ddd;}
+#window .selbox li.on{background:#E56D42;}
+	/*window end*/
+
+/*contbox end*/
+
+.c3cont{margin-top: 50px;padding: 0 3%;}
+.line{line-height:50px;font-size:15px;height:50px;color: #fff;}
+.line input{background: transparent;font-size: 15px;border:none;border-bottom:1px solid #E56D42;padding-left: 8px;height:30px;width: calc( 100% - 88px);}
+.line .l_ltit{width:80px;display:inline-block;text-align:right;}
+.c3_btn{display:block;color:#fff;font-size:18px;text-align:center;width:100%;background:#E56D42;line-height:45px;margin-top:30px;}
+
+.mui-btn{border:none;background: #E56D42!important;color: #fff;border-radius: 5px;}
+.mui-poppicker-header{background: #fff;}
+.mui-dtpicker-title h5{padding: 10px 0;}
+</style>
+
+
+</head>
+<body>
+<style>
+
+</style>
+	<div class="cont">
+		<!--head start-->
+		<div id="head">
+			<div class="h_nav">
+				<span class="on h_nlist">标准</span>
+				<span class="h_nlist">房贷</span>
+				<span class="h_nlist">时间</span>
+				<span>CH -Z- TY</span>
+			</div>
+		</div>
+		<!--head end-->
+
+		<!--contbox start-->
+		<div id="contbox">
+			<div class="contbox show">
+				<div class="h_cont">
+					<div class="h_cbox">
+						<form name="calculator" action="" method="get"> 
+							<!--<p class="h_cline" id="calcval1">计算结果</p>
+							<p class="h_cline" id="calcval2">计算结果</p>-->
+							<input type="text" name="numScreen" class="screen" id="calcval3" value="0" onfocus="this.blur();" /> 
+						</form>
+					</div>
+				</div>
+				<ul class="c_contbtn">
+					<li onclick="clearscreen()">C</li>
+					<li onclick="del()">←</li>
+					<li onclick="divide()">÷</li>
+					<li onclick="times()">×</li>
+					<li onclick="command(7)">7</li>
+					<li onclick="command(8)">8</li>
+					<li onclick="command(9)">9</li>
+					<li onclick="minus()">-</li>
+					<li onclick="command(4)">4</li>
+					<li onclick="command(5)">5</li>
+					<li onclick="command(6)">6</li>
+					<li onclick="plus1()" style="position: relative;z-index: 100;">+</li>
+					<li onclick="command(1)">1</li>
+					<li onclick="command(2)">2</li>
+					<li onclick="command(3)">3</li>
+					<li onclick="persent()">%</li>
+					<li onclick="command(0)">0</li>
+					<li onclick="dzero()">00</li>
+					<li onclick="dot()">.</li>
+					<li onclick="equal()">=</li>
+				</ul>
+			</div>
+			<div class="contbox">
+				<div class="loanbox">
+					<div class="l_line">
+						<span class="l_ltit">类别：</span>
+						<span class="l_lebel"><i class="on" id="benxi"></i>等额本息</span>
+						<span class="l_lebel"><i></i>等额本金</span>
+					</div>
+					<div class="l_line"><span class="l_ltit">贷款本金：</span><input type="text" id="totalmoney" />&nbsp;&nbsp;万元</div>
+					<div class="l_line"><span class="l_ltit">贷款年限：</span><font onclick="calc.dai.selWin(this)" data-month="请选择" id="daival">请选择</font id="dresultbox"></div>
+					<div class="l_line"><span class="l_ltit">年利率：</span><input type="text" id="rate" />&nbsp;&nbsp;%</div>
+					<a href="javascript:void(0)" id="l_count" onclick="calc.dai.clickCalc()">计算</a>
+					<div class="l_line" id="accrualbox" style="display: none;"><span class="l_ltit">利息款：</span><font id="accrual"></font></div>
+					<div id="benxibox">
+						<div class="l_line"><span class="l_ltit">还款总额：</span><font id="z">0.00</font></div>
+						<div class="l_line"><span class="l_ltit">利息款：</span><font id="x">0.00</font></div>
+						<div class="l_line"><span class="l_ltit">月均还款：</span><font id="y">0.00</font></div>
+					</div>
+					<div id="benjinbox" style="display: none;"></div>
+				</div>
+			</div>
+			<div class="contbox">
+				<div class="c3cont">
+					<div class="line"><span class="l_ltit">当前时间：</span><input onclick="page.showPicher(this)" id="nowdate" readonly="readonly" type="text" /></div>
+					<div class="line"><span class="l_ltit">选择时间：</span><input onclick="page.showPicher(this)" id="targetdate" readonly="readonly" type="text" /></div>
+					<div class="line"><span class="l_ltit">天数：</span><input readonly="readonly" id="countdate" type="text" /></div>
+					<a href="javascript:void(0)" class="c3_btn" onclick="page.coutDate()">计算</a>
+				</div>
+			</div>
+		</div>
+		<!--contbox end-->
+
+		<!--window start-->
+		<div id="window">
+			<ul class="selbox">
+				<li data-val="请选择" class="on" onclick="calc.dai.selYear(this);">请选择</li>
+				<li data-val="1" onclick="calc.dai.selYear(this);">1年（12期）</li>
+				<li data-val="2" onclick="calc.dai.selYear(this);">2年（24期）</li>
+				<li data-val="3" onclick="calc.dai.selYear(this);">3年（36期）</li>
+				<li data-val="4" onclick="calc.dai.selYear(this);">4年（48期）</li>
+				<li data-val="5" onclick="calc.dai.selYear(this);">5年（60期）</li>
+				<li data-val="6" onclick="calc.dai.selYear(this);">6年（72期）</li>
+				<li data-val="7" onclick="calc.dai.selYear(this);">7年（84期）</li>
+				<li data-val="8" onclick="calc.dai.selYear(this);">8年（96期）</li>
+				<li data-val="9" onclick="calc.dai.selYear(this);">9年（108期）</li>
+				<li data-val="10" onclick="calc.dai.selYear(this);">10年（120期）</li>
+				<li data-val="11" onclick="calc.dai.selYear(this);">11年（132期）</li>
+				<li data-val="12" onclick="calc.dai.selYear(this);">12年（144期）</li>
+				<li data-val="13" onclick="calc.dai.selYear(this);">13年（156期）</li>
+				<li data-val="14" onclick="calc.dai.selYear(this);">14年（168期）</li>
+				<li data-val="15" onclick="calc.dai.selYear(this);">15年（180期）</li>
+				<li data-val="16" onclick="calc.dai.selYear(this);">16年（192期）</li>
+				<li data-val="17" onclick="calc.dai.selYear(this);">17年（204期）</li>
+				<li data-val="18" onclick="calc.dai.selYear(this);">18年（216期）</li>
+				<li data-val="19" onclick="calc.dai.selYear(this);">19年（228期）</li>
+				<li data-val="20" onclick="calc.dai.selYear(this);">20年（240期）</li>
+				<li data-val="25" onclick="calc.dai.selYear(this);">25年（300期）</li>
+				<li data-val="30" onclick="calc.dai.selYear(this);">30年（360期）</li>
+			</ul>
+		</div>
+		<div id="wbg" onclick="calc.dai.hideWin();"></div>
+		<!--window end-->
+	</div>
+
+<script type="text/javascript" src="../js/calculator/jquery-1.11.1.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script type="text/javascript" src="../js/calculator/hz_util.js"></script>
+<script type="text/javascript" src="../js/calculator/mui.picker.min.js"></script>
+<script type="text/javascript">
+	
+	document.addEventListener("plusready",function(){
+		plus.navigator.setStatusBarBackground("#303539");
+		//屏幕常亮	
+		plus.device.setWakelock( true );
+		//plus.screen.lockOrientation("portrait");
+		
+		plus.webview.currentWebview().setStyle({
+			scrollIndicator: 'none',
+		});
+	});
+
+	//.contbox .c_contbtn li
+	mui.init({
+	    gestureConfig: {
+	        tap: true, //默认为true
+	        hold: true, //默认为false，不监听
+	        release: true //默认为false，不监听
+	    }
+	});
+	
+	var first = null;
+	mui.back = function(){
+		if(!first){
+			first = new Date().getTime(); 
+			plus.nativeUI.toast('再按一次退出应用');
+			setTimeout(function(){
+				first = null;
+			},2000);
+		}else{
+			if(new Date().getTime() - first < 2000){  
+				plus.runtime.quit();  
+			}
+		}
+	}
+
+	window.onload = function(){
+		page.initDate();
+		calc.init();
+		calcHeihgt();
+
+		window.onresize = function(){
+			calcHeihgt();
+		}
+	};
+
+
+	function calcHeihgt(){
+		var h = $(".contbox").height() - 127,winH = $(window).height();
+		$(".contbox .c_contbtn li").css({"height":h/5+"px","line-height":h/5+"px"});
+		$(".contbox .c_contbtn li").eq(-1).css({"height":(h/5)*2+"px","line-height":(h/5)*2+"px","bottom":(h/5-1)+"px","right":"0px"});
+		$("#benjinbox").css({"height":winH-398+"px"});
+	}
+	
+	
+	
+	
+	var num1 = 0,result = 0,numshow = "0";
+	var operate = 0; //判断输入状态的标志 
+	var calcul = 0; //判断计算状态的标志 
+	var quit = 0; //防止重复按键的标志 
+	function command(num1) {
+		console.log(num1);
+		var str = String(document.calculator.numScreen.value); //获得当前显示数据 
+		str = (str != "0") ? ((operate == 0) ? str : "") : ""; //如果当前值不是"0"，且状态为0，则返回当前值，否则返回空值; 
+		str = str + String(num1); //给当前值追加字符 
+		document.calculator.numScreen.value = str; //刷新显示 
+		operate = 0; //重置输入状态 
+		quit = 0; //重置防止重复按键的标志 
+	}
+
+	function dzero() {
+		var str = String(document.calculator.numScreen.value);
+		str = (str != "0") ? ((operate == 0) ? str + "00" : "0") : "0"; //如果当前值不是"0"，且状态为0，则返回当str+"00"，否则返回"0"; 
+		document.calculator.numScreen.value = str;
+		operate = 0;
+	}
+
+	function dot() {
+		var str = String(document.calculator.numScreen.value);
+		str = (str != "0") ? ((operate == 0) ? str : "0") : "0"; //如果当前值不是"0"，且状态为0，则返回当前值，否则返回"0"; 
+		for (i = 0; i <= str.length; i++) { //判断是否已经有一个点号 
+			if (str.substr(i, 1) == ".") return false; //如果有则不再插入 
+		}
+		str = str + ".";
+		document.calculator.numScreen.value = str;
+		operate = 0;
+	}
+
+	function del() { //退格 
+		var str = String(document.calculator.numScreen.value);
+		str = (str != "0") ? str : "";
+		str = str.substr(0, str.length - 1);
+		str = (str != "") ? str : "0";
+		document.calculator.numScreen.value = str;
+	}
+
+	function clearscreen() { //清除数据 
+		num1 = 0;
+		result = 0;
+		numshow = "0";
+		document.calculator.numScreen.value = "0";
+	}
+
+	function plus1() { //加法 
+		calculate(); //调用计算函数 
+		operate = 1; //更改输入状态 
+		calcul = 1; //更改计算状态为加 
+	}
+
+	function minus() { //减法
+		calculate();
+		operate = 1;
+		calcul = 2;
+	}
+
+	function times() { //乘法 
+		calculate();
+		operate = 1;
+		calcul = 3;
+	}
+
+	function divide() { //除法 
+		calculate();
+		operate = 1;
+		calcul = 4;
+	}
+
+	function persent() { //求余 
+		calculate();
+		operate = 1;
+		calcul = 5;
+	}
+
+	function equal() {
+		calculate(); //等于 
+		operate = 1;
+		num1 = 0;
+		result = 0;
+		numshow = "0";
+	}
+	// 
+	function calculate() {
+		numshow = Number(document.calculator.numScreen.value);
+		if (num1 != 0 && quit != 1) { //判断前一个运算数是否为零以及防重复按键的状态 
+			switch (calcul) { //判断要输入状态 
+				case 1:
+					result = num1 + numshow;
+					break; //计算"+" 
+				case 2:
+					result = num1 - numshow;
+					break; //计算"-" 
+				case 3:
+					result = num1 * numshow;
+					break;
+				case 4:
+					if (numshow != 0) {
+						result = num1 / numshow;
+					} else {
+						mui.toast("被除数不能为零！");
+					}
+					break;
+				case 5:
+					result = num1 % numshow;
+					break;
+			}
+			quit = 1; //避免重复按键 
+		} else {
+			result = numshow;
+		}
+		numshow = String(result);
+		document.calculator.numScreen.value = numshow;
+		num1 = result; //存储当前值 
+	}
+	
+	
+	
+	mui.init();
+	(function(MU) {
+		MU.ready(function() {
+			var opation = {"type":"date"};
+			page.userPicker = new MU.DtPicker(opation);
+		});	
+	})(mui);
+	
+var page = {
+	userPicker : null,
+	showPicher : function(obj){
+		page.userPicker.show(function(items) {
+			console.log("--------选择日期---------"+JSON.stringify(items.value));
+			$(obj).val(items.value);
+			//page.userPicker.dispose();
+		});
+	},
+	initDate : function(){
+		var date = new Date();
+		var y = date.getFullYear(),m = date.getMonth()+1,d = date.getDate();
+		$("#nowdate").val(y+"-"+page.checkTime(m)+"-"+page.checkTime(d));
+	},
+	coutDate : function(){
+		var nowdate = $("#nowdate").val(),targetdate = $("#targetdate").val();
+		if(hz_util.isEmpty(targetdate)){
+			plus.nativeUI.toast("请选择时间");
+			return;
+		}
+		var reg = new RegExp("-","g");
+		
+		nowdate = nowdate.replace(reg,"/");
+		targetdate = targetdate.replace(reg,"/");
+		console.log(nowdate+"==============="+targetdate);
+		
+		var ndate = new Date(nowdate).getTime(),tdate = new Date(targetdate).getTime();
+		
+		var day = Math.floor(Math.abs((ndate*1 - tdate*1))/(24*60*60*1000));
+		$("#countdate").val(day);
+	},
+	//小于10补0
+	checkTime : function(i){ 
+		if(i<10){i="0"+i};
+		return i;
+	},
+	
+	/*
+		倒计时算法
+			y : 年 m : 月 d : 日
+			mark ? 传进来时间 : 系统时间;
+			flag ? 传进来时间 - 系统时间 : 系统时间 - 传进来时间;
+	*/
+	countDown : function(y,m,d,mark,flag){
+		var starDate = new Date();
+		//获取年月日
+		var fullYear = starDate.getFullYear(),month = starDate.getMonth(),day1 = starDate.getDate() + 1;
+		//结束时间
+		var endDate = mark ? new Date(y,m-1,d) : new Date(fullYear,month,day1,y,m,d);
+		//剩余毫秒数
+		var time = (flag?endDate.getTime():starDate.getTime()) - (flag?starDate.getTime():endDate.getTime());
+
+		if(time <= 0){
+			return {day:0,hour:0,minute:0,second:0};
+		}
+
+		//毫秒转秒
+		var secDate = time / 1000; 
+		//获取剩余天数,时分秒
+		var day = Math.floor(secDate / 60 / 60 / 24),hour = Math.floor(secDate / 60 / 60 % 24),minute = Math.floor(secDate / 60 % 60),second = Math.ceil(secDate % 60);
+		return {day:day,hour:hour,minute:minute,second:second};
+	}
+}
+	
+	
+	
+	
+
+var calc = {
+	init : function(){
+		$("#head .h_nav .h_nlist").click(function(){
+			var i = $(this).index();
+			$(this).addClass("on").siblings().removeClass("on");
+			$("#contbox .contbox").eq(i).addClass("show").siblings().removeClass("show");
+		});
+		$(".l_line .l_lebel").click(function(){
+			$(this).find("i").addClass("on").parent().siblings().find("i").removeClass("on");
+			var i = $(this).index();
+			if(i == 1){
+				$("#benjinbox,#accrualbox").hide();
+				$("#benxibox").show();
+			}else{
+				$("#benjinbox,#accrualbox").show();
+				$("#benxibox").hide();
+			}
+		});
+	},
+	calcArr : [],
+	calcNum : "",
+	a : function(obj){
+		var num = $(obj).data("txt");
+		this.calcNum += num;
+
+	},
+	//贷款 - 功能
+	dai : {
+		selWin : function(obj){
+			$("#window,#wbg").show();
+		},
+		hideWin : function(){
+			$("#window,#wbg").hide();
+		},
+		selYear : function(obj){
+			var num = $(obj).text(),month = $(obj).data("val");
+			$(obj).addClass("on").siblings().removeClass("on");
+			$("#daival").text(num).attr("data-month",month);
+			this.c = month;	//期数赋值
+			this.hideWin();
+		},
+		c : "请选择",//期数
+		//等额本息算法
+		dCalc : function(a,b,c){	//a:年利率 b:贷款金额 c:期数（多少个月）
+			var y = (b*(a/12)*(Math.pow(1+(a/12),c)))/((Math.pow(1+(a/12),c))-1);	//月支付
+			var z = y*c;	//利息+贷款金额
+			var x = z - b;	//总利息
+			return {x:x,y:y,z:z};	//x:总利息 y:月利率 z:总金+总息
+		},
+		//等额本金算法
+		dCalc1 : function(a,b,c,d){	//a:年利率 b:贷款金额 c:期数（多少个月）d:已归还本金额
+			//(贷款本金÷还款月数)+(贷款本金-已归还本金累计额)×月利率
+			var y = (b/c)+(b-d)*(a/12);//月应付
+			return y;
+		},
+		//点击计算
+		clickCalc : function(){
+			var a = $("#rate").val(),b = $("#totalmoney").val(),c = this.c;
+			var mark = $("#benxi").hasClass("on");
+			if(hz_util.isEmpty(b)){
+				mui.toast("请输入贷款金额！");
+				return;
+			}
+			if(!(!isNaN(b) && b>0)){
+				mui.toast("请输入正确的贷款金额！");
+				return;
+			}
+			if(this.c == "请选择"){
+				mui.toast("请选择贷款年限！");
+				return;
+			}
+			if(hz_util.isEmpty(a)){
+				mui.toast("请输入年利率！");
+				return;
+			}
+			if(!(!isNaN(a) && a>0)){
+				mui.toast("请输入正确的年利率！");
+				return;
+			}
+			if(mark){
+				var json = this.dCalc(a/100,b*10000,c*12);
+				console.log(c);
+				console.log(JSON.stringify(json));
+				for(var key in json){
+					$("#"+key).text(json[key].toFixed(2));
+				}
+			}else{
+				var q = c*12;//总期数
+				var html = "",accrual=0;
+				for(var i = 0;i < q;i++){
+					//a:年利率 b:贷款金额 c:期数（多少个月）d:已归还本金额
+					mm = (this.dCalc1(a/100,b*10000,q,(b*10000/q)*i)).toFixed(2);//月应付
+					accrual += mm - b*10000/q;//总支付利息款
+					html += '<div class="l_line"><span class="l_ltit">第'+(i+1)+'期：</span>'+mm+' -- 已还：'+(((b*10000/q)*(i+1)).toFixed(2))+'</div>';
+				}
+				$("#accrual").text(accrual.toFixed(2));
+				$("#benjinbox").html(html);
+			}
+		}
+	}
+}
+
+</script>
+</body>
+</html>

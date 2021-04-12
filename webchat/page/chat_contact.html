@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/header.css" rel="stylesheet" />
+		<link href="../css/mui.indexedlist.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<!--头部标题栏 -->
+		<header class="mui-bar mui-bar-nav title">
+			<h1 class="mui-title title-color">通讯录</h1>
+		</header>
+		<!-- 主体部分 -->
+		<div class="mui-content" id='mymui'>
+					
+			
+			<div id='list' class="mui-indexed-list" style="margin-bottom:5px ; position: relative;">
+				<div class="mui-indexed-list-search mui-input-row mui-search">
+					<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索好友">
+				</div>
+				<!-- 添加好友请求 -->
+				<ul id="ul_friend_request" class="mui-table-view" style="margin-bottom: 10px;">				
+				</ul>
+				
+				<div class="mui-indexed-list-bar">
+					<a>A</a>
+					<a>B</a>
+					<a>C</a>
+					<a>D</a>
+					<a>E</a>
+					<a>F</a>
+					<a>G</a>
+					<a>H</a>
+					<a>I</a>
+					<a>J</a>
+					<a>K</a>
+					<a>L</a>
+					<a>M</a>
+					<a>N</a>
+					<a>O</a>
+					<a>P</a>
+					<a>Q</a>
+					<a>R</a>
+					<a>S</a>
+					<a>T</a>
+					<a>U</a>
+					<a>V</a>
+					<a>W</a>
+					<a>X</a>
+					<a>Y</a>
+					<a>Z</a>
+				</div>
+				<div class="mui-indexed-list-alert"></div>
+				<div class="mui-indexed-list-inner">
+					<div class="mui-indexed-list-empty-alert">没有数据</div>
+					<ul id="contactList" class="mui-table-view">
+						<!-- <li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>
+						<li class="mui-media mui-table-view-cell mui-indexed-list-item">
+							<img class="mui-media-object mui-pull-left" style="max-width: 35px;height: 35px;" src="../css/registLogin/arrow.jpg" />
+							<div class="mui-media-body" style="line-height: 35px;">tom</div>
+						</li> -->
+										
+					</ul>
+				</div>
+			</div>
+
+		</div>	
+					
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.indexedlist.js"></script>
+		<script src="../js/app.js"></script>
+		<script src="../js/nickname.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			//26个字母外加#
+			var enWords = [
+				'A','B','C','D','E','F','G',
+				'H','I','J','K','L','M','N',
+				'O','P','Q','R','S','T','U',
+				'V','W','X','y','Z','#'
+			];
+			//构建通讯录二维数组模型
+			var friendArray =[
+				[],[],[],[],[],[],[],[],[],
+				[],[],[],[],[],[],[],[],[],
+				[],[],[],[],[],[],[],[],[]
+			];
+			
+			//清空通讯录模型数组
+			function clearFriendArray(){
+				friendArray =[
+					[],[],[],[],[],[],[],[],[],
+					[],[],[],[],[],[],[],[],[],
+					[],[],[],[],[],[],[],[],[]
+				]
+			}
+		
+					mui.plusReady(function () {
+						//获取全局登录用户对象
+							var user = app.getUserGlobalInfo();
+							//获取好友后台数据
+							fetchContactList(user);
+						    //监听当前webview的show事件
+							var thisWebview = plus.webview.currentWebview();
+							thisWebview.addEventListener("show",function(){
+								
+								//从缓存中获取联系人列表，并且渲染到页面
+								renderContactPage();
+								//显示通讯录
+								showList();
+								//加载好友请求
+								loadingFriendRequest();
+							
+							})			
+						
+						});
+							
+						//加载好友请求列表
+						function loadingFriendRequest(){
+							var user = app.getUserGlobalInfo();
+							mui.ajax(app.serverUrl+"/user/sendFriendList?userId="+user.id,{
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){
+									if(data.status==200){
+										var friendRequestList = data.data;
+			//							console.log(JSON.stringify(friendRequestList));
+										var ul_friend_request = document.getElementById("ul_friend_request");
+										if(friendRequestList!=null&&friendRequestList.length>0){
+											//console.log(JSON.stringify(friendRequestList));
+											var friendRquestHtml = "";//用于存储好友列表字符串拼接变量
+											//遍历好友列表请求
+											for(var i = 0;i<friendRequestList.length;i++){
+												console.log(JSON.stringify(friendRequestList));
+												friendRquestHtml += renderFriendRequest(friendRequestList[i]);
+											}
+											//将拼接的字符串嵌入容器中
+											ul_friend_request.innerHTML = friendRquestHtml;
+																			
+											//	忽略某个好友请求
+											mui(".btnOper").on("tap",".ignoreRequest",function(){
+												var friendId = this.getAttribute("friendId");
+												 operatorFriendRquest(user.id,friendId,0);
+											});
+											//	通过好友请求
+											mui(".btnOper").on("tap",".passRequst",function(){
+												var friendId = this.getAttribute("friendId");
+												operatorFriendRquest(user.id,friendId,1);
+											});
+											
+										}											
+									}
+								},
+								error:function(e){
+									console.log(e);
+								}
+							});
+					}
+						//用于单个好友字符串拼接
+						function renderFriendRequest(friend){
+							var html = "";
+							html = '<li class="btnOper mui-table-view-cell mui-media">'+
+									'<a href="javascript:;">'+
+										'<img class="mui-media-object mui-pull-left" src="'+app.imgServerUrl+friend.sendFaceImage+'">'+
+										'<div class="mui-media-body">'+
+											'<span class="mui-pull-right">'+
+												'<button type="button" friendId="'+friend.sendUserId+'" class="passRequst mui-btn mui-btn-danger" style="margin-right: 10px;">添加</button>'+
+												'<button type="button" friendId="'+friend.sendUserId+'" class="ignoreRequest mui-btn mui-btn-grey">忽略</button>'+
+											'</span>'+
+											'<label id="lab_friend_nickname">'+friend.sendNickName+'</label>'+
+											'<p class="mui-ellipsis">对方请求添加你为好友</p>	'+
+										'</div>'+
+									'</a>'+
+								'</li>';	
+								return html;
+						}
+						//处理好友请求方法
+						function operatorFriendRquest(userId,friendId,operType){
+								mui.ajax(app.serverUrl+"/user/ignoreFriendRequest?acceptUserId="+userId+"&sendUserId="+friendId+"&operType="+operType,{
+								    dataType:'json',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									success:function(data){
+										//更新通讯录
+										var myFriendsList = data.data;
+										app.setContactList(myFriendsList);
+										//更新好友请求列表
+										loadingFriendRequest();
+									},
+									error:function(e){
+										console.log(e);
+									}
+								});
+								
+						}		
+							
+			//从缓存中获取联系人列表，并且渲染到页面
+			function renderContactPage(){
+				//获取联系人列表
+				var friendList = app.getContactList();
+				//循环好友列表
+					for(var i =0;i<friendList.length;i++){
+						//获取当前好友
+						var friend  = friendList[i];
+						//将当前好友的名称转为拼音
+						var pinyin = words.convertPinyin(friend.friendNickName);
+						//截取拼音首字母并转为大写
+						var firstStr = pinyin.substr(0,1).toUpperCase();
+						//获取首字母在二维数组中的位置
+						var index = getOrderOfWords(firstStr);
+						//将当前循环的好友塞入对应二维数组中对应字母下的数组中
+						friendArray[index].push(friend);
+					}
+				
+				//构建通讯录html并且进行渲染
+				var friendHtml="";
+				//遍历通讯录二维数组
+				for(var i=0;i<friendArray.length;i++){
+					//提取当前字母下的联系人列表
+					var contactArray = friendArray[i];
+					if(contactArray.length>0){
+						//获取组名
+						var nicknameStarter = enWords[i];
+						//拼接html字符串
+						friendHtml+='<li data-group="'+nicknameStarter+'" class="mui-table-view-divider mui-indexed-list-group">'+nicknameStarter+'</li>';
+						//循环遍历当前组下的好友列表
+						for(var j =0;j<contactArray.length;j++){
+							friendHtml+='<li friendUserId="'+contactArray[j].friendUserId+'" friendNickName="'+contactArray[j].friendNickName+'" friendFaceImage="'+contactArray[j].friendFaceImage+'" class="chat-with-friend mui-media mui-table-view-cell mui-indexed-list-item">'+
+											'<img class="mui-media-object mui-pull-left" style="max-width: 35px;height: 35px;" src="'+app.imgServerUrl+contactArray[j].friendFaceImage+'" />'+
+											'<div class="mui-media-body" style="line-height: 35px;">'+contactArray[j].friendNickName+'</div>'+
+										'</li>';
+						}
+					}
+				}
+				//渲染html
+				document.getElementById("contactList").innerHTML=friendHtml;
+				//清空数组
+				clearFriendArray();
+				
+				//为通讯录好友列表批量绑定触事件
+				mui("#contactList").on("tap",".chat-with-friend",function(){
+					var friendUserId = this.getAttribute("friendUserId");
+					var friendNickName = this.getAttribute("friendNickName");
+					var friendFaceImage = this.getAttribute("friendFaceImage");
+					//打开聊天页面
+					mui.openWindow({
+						url: "chatting.html",
+						id: "chatting" + friendUserId,//每个好友的聊天页面都是一一对应的
+						extras: {
+							friendUserId:friendUserId,
+							friendNickName:friendNickName,
+							friendFaceImage:friendFaceImage
+						}
+					});
+				});
+			}
+			
+			
+			//获取英文字母所在数组的位置
+			function getOrderOfWords(ch){
+				for(var i=0;i<enWords.length;i++){
+					if(enWords[i]==ch){
+						return i;
+					}
+				}
+				//如果没有对应的值，说明用户昵称的首字母是乱七八糟的字符或者数字或者特殊符号（表情）
+				return enWords.length-1;
+			}
+			
+		//获取后端好友列表数据的函数
+			function fetchContactList(user){
+				//异步请求后台
+				mui.ajax(app.serverUrl + "/user/myFriends?userId="+user.id,{
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						if(data.status==200){
+							var contactList = data.data;
+							//将好友列表存入本地缓存中
+							app.setContactList(contactList);
+							console.log(JSON.stringify(contactList));
+						}
+					}
+				}); 
+			}
+
+			function showList(){
+				var list = document.getElementById("list");
+				list.style.height = document.body.offsetHeight+"px";
+				//创建列表显示
+				window.indexedList = new mui.IndexedList(list);
+			}
+			
+		</script>
+	</body>
+
+</html>

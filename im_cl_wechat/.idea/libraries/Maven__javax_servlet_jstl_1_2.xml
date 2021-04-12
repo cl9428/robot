@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: javax.servlet:jstl:1.2">
+    <CLASSES>
+      <root url="jar://E:/Program Files/Java/maven3.3.9/ck/javax/servlet/jstl/1.2/jstl-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://E:/Program Files/Java/maven3.3.9/ck/javax/servlet/jstl/1.2/jstl-1.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://E:/Program Files/Java/maven3.3.9/ck/javax/servlet/jstl/1.2/jstl-1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

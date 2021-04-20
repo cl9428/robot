@@ -9,8 +9,8 @@ window.app = {
 	 * 后端服务发布的url地址
 	 */
 	
-	//serverUrl:"http://cl9428.cn1.utools.club/im_cl",
-	serverUrl: "http://cl8080.hk1.utools.club/im_cl",
+	serverUrl:"http://cl9428.cn1.utools.club/im_cl",
+	//serverUrl: "http://cl9428.hk1.utools.club/im_cl",
 	 //serverUrl:"http://192.168.43.245:8080/im_cl",
 //	serverUrl:"http://192.168.101.70:8080/im_cl",
 	

@@ -123,6 +123,7 @@
 						}
 						
 						//发送消息
+						var Url ="";
 						sendMsg(app.imgServerUrl +me.faceImage,msg_text_content);
 						//调用图灵机器人方法
 						mui.ajax(app.serverUrl+"/chat/weChat?message="+msg_text_content,{
@@ -133,12 +134,31 @@
 								receiveMsg(data.text);
 								if(data.url!=null){
 									var chat = '<a class="a_a" href="'+data.url+'" >点击这里为您跳转</a>';
+									Url = data.url;
+									localStorage.setItem("targetId",Url);
+									console.log(Url)
 									receiveMsg(chat);							
 								}
 							},
 							error:function(e){
 								console.log(e);
 							}
+						});
+			
+						mui('body').off('tap' , '.a_a').on( 'tap' , '.a_a' , function(){
+							mui.openWindow({
+							         id: 'web.html',
+							         url: 'web.html',
+							         show: {
+							                aniShow: 'pop-in'
+							          },
+							           extras: {    //extras里面的就是参数了
+							                myUrl:Url
+							           },
+							           waiting: {
+							                 autoShow: true, //自动显示等待框，默认为true
+							           }
+							  });
 						});
 					/* 	//调用图灵机器人方法
 						mui.ajax(app.serverUrl+"/chat/bot?question="+msg_text_content,{

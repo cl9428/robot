@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.badlogicgames.jlayer:jlayer:1.0.2-gdx">
+    <CLASSES>
+      <root url="jar://E:/Program Files/Java/maven3.3.9/ck/com/badlogicgames/jlayer/jlayer/1.0.2-gdx/jlayer-1.0.2-gdx.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://E:/Program Files/Java/maven3.3.9/ck/com/badlogicgames/jlayer/jlayer/1.0.2-gdx/jlayer-1.0.2-gdx-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://E:/Program Files/Java/maven3.3.9/ck/com/badlogicgames/jlayer/jlayer/1.0.2-gdx/jlayer-1.0.2-gdx-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

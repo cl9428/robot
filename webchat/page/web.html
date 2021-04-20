@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			var u = localStorage.getItem("targetId");
+			   mui.init({
+					//进行加载
+					
+				  subpages:[{
+							url:"https://m.ctrip.com/html5",
+							id:"u",
+							styles:{
+
+							}
+						}]
+					
+			   });
+			   
+			mui.plusReady(function() {			
+						 //var u = plus.storage.getItem("targetId");
+						
+						 console.log(u)
+						var ws = plus.webview.currentWebview();//加载进外部网页,加载完成关闭等待框
+						ws.show('slide-in-right', 50);
+						plus.nativeUI.closeWaiting();
+					});
+			
+		</script>
+	</body>
+
+</html>

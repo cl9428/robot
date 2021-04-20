@@ -120,7 +120,10 @@
 				if(user != null) {
 					var faceImage = user.faceImageBig;
 					if(app.isNotNull(faceImage)) {
+						
 						img_my_face.src = app.imgServerUrl + faceImage;
+						console.log(img_my_face.src)
+						
 					}
 				}
 			}

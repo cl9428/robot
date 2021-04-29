@@ -1,3 +1,5 @@
+package com.cl.utils;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -9,12 +11,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-/**
+/**y
  * 图灵机器人
  */
 public class TulingRobot {
     private static final String url = "http://www.tuling123.com/openapi/";
-    private static final String api_key = "自己的apiKey";
+    private static final String api_key = "29f09ec51fdd4633a7a8f514a52175d5";
 
 
     //获取响应，得到响应的json字符串

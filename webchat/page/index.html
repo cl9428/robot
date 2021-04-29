@@ -13,7 +13,7 @@
 	<body>
 		<!--标题栏-->
 		<header class="mui-bar mui-bar-nav title">
-			<h1 class="mui-title title-color" id="bird-title"><b> 聊 天 机 器 人</b></h1>
+			<h1 class="mui-title title-color" id="robot_title"><b> 聊 天 机 器 人</b></h1>
 		</header>
 		<!--主体部分-->
 		<div class="mui-content">
@@ -116,11 +116,11 @@
 			});
 			//预加载
 			function initData(){
-				var bird_chatlist  = plus.webview.getWebviewById("bird-chatlist.html");
-				mui.fire(bird_chatlist,"refresh");
+				var Robot  = plus.webview.getWebviewById("Robot.html");
+				mui.fire(Robot,"refresh");
 				
-				var bird_me = plus.webview.getWebviewById("bird-me.html");
-				mui.fire(bird_me,"refresh");	
+				var chat_me = plus.webview.getWebviewById("chat_me.html");
+				mui.fire(chat_me,"refresh");	
 			}
 			
 			//监听网络状态的函数
@@ -129,12 +129,12 @@
 					//获取网络状态
 					var connectionStatus = plus.networkinfo.getCurrentType();
 				    if(connectionStatus!=0 && connectionStatus!=1){
-						var bird_title = document.getElementById("bird-title");
-						bird_title.innerHTML = "<b>'智 能' 聊 天</b>";
+						var robot_title = document.getElementById("robot_title");
+						robot_title.innerHTML = "<b>'智 能' 聊 天</b>";
 					}else{
 						//网络异常
-						var bird_title = document.getElementById("bird-title");
-						bird_title.innerHTML = "<b>' 智 能 '聊 天（未连接）</b>";
+						var robot_title = document.getElementById("robot_title");
+						robot_title.innerHTML = "<b>' 智 能 '聊 天（未连接）</b>";
 					}
 				});	
 			}

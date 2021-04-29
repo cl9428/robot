@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		
+		<div class="mui-content" id="newlist">
+		
+		</div>
+	
+		
+		<script src="../../js/mui.js"></script>
+		<script src="../../js/template-web.js" type="text/javascript" charset="utf-8"></script>		
+				
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    mui.ajax('https://news-at.zhihu.com/api/4/news/latest',{
+			    	dataType:'json',//服务器返回json格式数据
+			    	type:'GET',//HTTP请求类型
+			    	timeout:10000,//超时时间设置为10秒；
+			    	success:function(data){
+			    		var html = template("newlistScript",data);
+						mui("#newlist")[0].innerHTML = html;
+			    	},
+			    	error:function(e){
+			    		mui.toast(e);
+			    	}
+			    });
+			});
+		</script>
+		<script type="text/html" id="newlistScript">
+			<ul class="mui-table-view" id="newlist">
+					{{each stories}}
+					<li class="mui-table-view-cell mui-media" id="{{$value.id}}">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-left" src="{{$value.images[0]}}" >
+							<div class="mui-media-body">
+								<p class="mui-ellipsis">{{$value.title}}</p>
+							</div>
+						</a>
+					</li>
+					{{/each}}
+				</ul>
+		</script>
+		
+	</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/header.css"/>
+	</head>
+
+	<body>
+		<!--头部标题栏 -->
+		<header class="mui-bar mui-bar-nav title">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:white;"></a>
+			<h1 class="mui-title title-color">新闻电影资讯</h1>
+		</header>
+	
+		<!--主体部分-->
+		<div class="mui-content">
+		   
+		</div>
+		<!-- 底部选项卡 -->
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" tabindex="0">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item mui-active" tabindex="1">
+				<span class="mui-icon mui-icon-phone"></span>
+				<span class="mui-tab-label">知乎新闻</span>
+			</a>
+			<a class="mui-tab-item mui-active" tabindex="2">
+				<span class="mui-icon mui-icon-phone-filled"></span>
+				<span class="mui-tab-label">豆瓣电影</span>
+			</a>
+		</nav>		
+		
+		<script src="../../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			//定义用于存储选项卡页面的数组
+			var subPages = [
+				{
+					pageId: "index.html",
+					pageUrl: "index.html"
+				},
+				{
+					pageId: "newsList.html",
+					pageUrl: "newsList.html"
+				},
+				{
+					pageId: "newsList.html",
+					pageUrl: "newsList.html"
+				}
+			];
+			//设置页面打开的样式
+			var pageStyle = {
+				top:"0px",
+				bottom:"50px"
+
+			};
+			
+			
+			mui.plusReady(function () {
+			    	
+			    	//设置系统字体颜色
+			    	plus.navigator.setStatusBarStyle("light");
+			        //设置系统状态栏背景颜色
+			    	plus.navigator.setStatusBarBackground("#00A1D6");
+			    	 plus.navigator.setStatusBarStyle('light');    
+			    	//设置应用全屏显示
+			    	// plus.navigator.setFullscreen(true);			
+			    	
+			    	//选项卡代码
+			    	//获取当前的webview对象
+			    	var indexWebview = plus.webview.currentWebview();
+			    	//将数组中的页面循环向当前主页webview 追加子页的3个webview对象
+			    	for(var i =0;i<subPages.length;i++){
+			    		//将每次循环产生的页面信息创建为webview窗口对象
+			    		var wv = plus.webview.create(subPages[i].pageUrl,subPages[i].pageId,pageStyle);
+			    		//隐藏
+			    		wv.hide();
+			    		//追加子窗口对象至主窗口对象中
+			    		indexWebview.append(wv);
+			    	}
+			    	//设置默认窗口页面
+			    	plus.webview.show(subPages[0].pageId);
+			    	//批量绑定tab事件
+			    	mui(".mui-bar-tab").on("tap","a",function(){
+			    		var tabindex = this.getAttribute("tabindex");
+			    		//显示点击的tab选项卡所对应的页面
+			    		plus.webview.show(subPages[tabindex].pageId,"fade-in",200);
+			    		//隐藏不需要的页面
+			    		for(var i=0;i<subPages.length;i++){
+			    			if(i!=tabindex){
+			    				plus.webview.hide(subPages[i].pageId,"fade-out",200);
+			    			}
+			    		}
+			    	});
+			    	//延时加载
+			    	setTimeout("initData()",1000);
+			    });
+			    //预加载
+			    function initData(){
+			    	var index  = plus.webview.getWebviewById("index.html");
+			    	mui.fire(index,"refresh");
+			    	
+			    	var newsList = plus.webview.getWebviewById("newsList.html");
+			    	mui.fire(newsList,"refresh");	
+			    }
+			
+		</script>
+	</body>
+
+</html>

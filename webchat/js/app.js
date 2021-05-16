@@ -17,7 +17,7 @@ window.app = {
 	/**
 	 * 图片服务器的url地址
 	 */
-    imgServerUrl:'http://82.156.196.55:88/cl/',
+    imgServerUrl:'http://1.117.93.5:88/cl/',
 	//imgServerUrl:'http://82.156.196.55/images',
 	//imgServerUrl: 'http://cl9428.cn.utools.club/cl',
 	//imgServerUrl:'http://192.16.43.245:8080/cl',

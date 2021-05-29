@@ -2,6 +2,7 @@ package com.cl;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
+import java.util.UUID;
 
 public class sort {
 
@@ -15,6 +16,7 @@ public class sort {
                     System.out.print(i + "\t");
                 }
             }
+            System.out.println(getUUID());
         }
         public int maxEvents(int[][] events) {
             // 按照开始日期升序排列。
@@ -42,4 +44,14 @@ public class sort {
             }
             return res;
         }
+
+
+    public static String getUUID(){
+        UUID uuid=UUID.randomUUID();
+        String str = uuid.toString();
+        String uuidStr=str.replace("-", "");
+        return uuidStr;
+    }
+
+
 }

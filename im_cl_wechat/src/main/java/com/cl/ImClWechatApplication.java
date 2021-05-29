@@ -17,6 +17,12 @@ import org.springframework.context.annotation.ComponentScans;
 @ComponentScan(basePackages = {"com.cl","com.n3r.idworker"})
 public class ImClWechatApplication extends SpringBootServletInitializer {
 
+    @Bean
+    public SpringUtil getSpringUtil(){
+        return new SpringUtil();
+    }
+
+
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(ImClWechatApplication.class);

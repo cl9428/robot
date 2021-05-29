@@ -3,7 +3,7 @@ window.app = {
 	/**
 	 * netty服务后端发布的url地址
 	 */
-	nettyServerUrl: 'ws://101.200.79.231:8888/ws',
+	nettyServerUrl: 'ws://192.168.43.245:8888/ws',
 	
 	/**
 	 * 后端服务发布的url地址
@@ -91,7 +91,7 @@ window.app = {
 			var contactList = JSON.parse(contactListStr);
 			for(var i = 0;i<contactList.length;i++){
 				var friend = contactList[i];
-				if(friend.friendUserId == friendId){
+				if(friend.friendsUserId == friendId){
 					return friend;
 					break;
 				}

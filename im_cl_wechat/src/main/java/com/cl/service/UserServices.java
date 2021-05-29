@@ -1,6 +1,8 @@
 package com.cl.service;
 
 import com.cl.enums.search;
+
+import com.cl.netty.ChatMsg;
 import com.cl.pojo.FriendsRequest;
 import com.cl.pojo.MyFriends;
 import com.cl.pojo.TUsers;
@@ -33,6 +35,16 @@ public interface UserServices {
 
     //好友列表查询
     List<MyFriendsVo> queryMyFriends(String userId);
+
+
+    //保存用户聊天消息
+    String saveMsg(ChatMsg chatMsg);
+
+    void updateMsgSigned(List<String> msgIdList);
+
+    //获取未签收的消息列表
+    List<com.cl.pojo.ChatMsg> getUnReadMsgList(String acceptUserId);
+
    /* //修改用户头像
     TUsers updateUserFace(TUsers users);*/
 }

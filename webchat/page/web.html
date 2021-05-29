@@ -5,10 +5,19 @@
 		<meta charset="utf-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/header.css"/>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<style>
+			
+		</style>
 	</head>
-
-	<body>
+	
+	<body contextmenu="return false;">
+		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #00A1D6;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left title-color"></a>
+			<h1 class="mui-title" style="color: #ffffff;"> 游玩 出行 一路通</h1>
+		</header>
+		
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript">
 			var u = localStorage.getItem("targetId");
@@ -19,7 +28,7 @@
 							url:"https://m.ctrip.com/html5",
 							id:"u",
 							styles:{
-								
+								 top: '46px'
 							}
 						}]		
 					
@@ -30,7 +39,7 @@
 				//var u = plus.storage.getItem("targetId");
 						 console.log(u)
 						var ws = plus.webview.currentWebview();//加载进外部网页,加载完成关闭等待框
-						ws.show('slide-in-right', 50);
+						ws.show('slide-in-right', 20);
 						plus.nativeUI.closeWaiting();
 					});
 			

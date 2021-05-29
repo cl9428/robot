@@ -44,8 +44,10 @@
 						</div>
 				</li>
 			</ul>
-			<!-- 	<ul id="ul_chatSnapshot" class="mui-table-view">
-			<li class="mui-table-view-cell mui-media">
+			<ul id="ul_chatSnapshot" class="mui-table-view">
+				
+				
+			<!-- <li class="mui-table-view-cell mui-media">
 					<div class="mui-slider-right mui-disabled">
 						<a class="mui-btn mui-btn-red">删除</a>
 					</div>
@@ -68,8 +70,10 @@
                         王文
 						<p class="mui-ellipsis">hello，lily</p>
 					</div>
-				</li>
-			</ul> -->
+				</li> -->
+				
+				
+			</ul> 
 		</div>
 		
 		
@@ -106,8 +110,8 @@
 					var friendFaceImage = this.getAttribute("friendFaceImage");
 					//打开聊天页面
 					mui.openWindow({
-						url: "bird-chatting.html",
-						id: "bird-chatting" + friendUserId,//每个好友的聊天页面都是一一对应的
+						url: "chatting.html",
+						id: "chatting" + friendUserId,//每个好友的聊天页面都是一一对应的
 						extras: {
 							friendUserId:friendUserId,
 							friendNickname:friendNickname,
@@ -207,7 +211,7 @@
 					var myId = chatMsg.receiverId;
 					
 					//调用websocket 发送消息到netty后端
-					var chatWebview = plus.webview.getWebviewById("bird-chatting"+friendUserId);
+					var chatWebview = plus.webview.getWebviewById("chatting"+friendUserId);
 					var isRead = true;//默认表示消息的状态为已读状态
 					
 					if(chatWebview!=null){
@@ -262,6 +266,7 @@
 				for(var i = 0;i<chatSnapshotList.length;i++){
 					var chatItem = chatSnapshotList[i];
 					var friendId = chatItem.friendId;
+					//var friendId = "210321DCFAWMH5WH";
 					//根据friendId  从本地联系人列表的缓存中获取相关的信息
 					var friend = app.getFriendFromContactList(friendId);
 					//判断消息的已读或未读状态
@@ -273,7 +278,7 @@
 						readHtmlAfter='</span>';
 					}
 					
-					chatItemHtml = '<li  friendUserId="'+friendId+'" friendNickname="'+friend.friendNickname+'" friendFaceImage="'+friend.friendFaceImage+'" class="chat-with-friend mui-table-view-cell mui-media">'+
+					chatItemHtml = '<li  friendUserId="'+friendId+'" friendNickname="'+friend.friendNickName+'" friendFaceImage="'+friend.friendFaceImage+'" class="chat-with-friend mui-table-view-cell mui-media">'+
 										'<div class="mui-slider-right mui-disabled">'+
 											'<a id="link_delChatRecord" friendUserId="'+friendId+'" class="mui-btn mui-btn-red">删除</a>'+
 										'</div>'+

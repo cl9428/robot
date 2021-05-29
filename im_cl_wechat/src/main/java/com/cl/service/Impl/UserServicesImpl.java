@@ -1,10 +1,9 @@
 package com.cl.service.Impl;
 
+import com.cl.enums.MsgSignFlagEnum;
 import com.cl.enums.search;
-import com.cl.mapper.FriendsRequestMapper;
-import com.cl.mapper.MyFriendsMapper;
-import com.cl.mapper.TUsersMapper;
-import com.cl.mapper.UsersMapperCustom;
+import com.cl.mapper.*;
+import com.cl.netty.ChatMsg;
 import com.cl.pojo.FriendsRequest;
 import com.cl.pojo.MyFriends;
 import com.cl.pojo.TUsers;
@@ -39,6 +38,9 @@ public class UserServicesImpl implements UserServices {
     MyFriendsMapper myFriendsMapper;
     @Autowired
     FriendsRequestMapper friendsRequestMapper;
+
+    @Autowired
+    ChatMsgMapper chatMsgMapper;
 
     @Autowired
     UsersMapperCustom usersMapperCustom;
@@ -164,6 +166,33 @@ public class UserServicesImpl implements UserServices {
     @Override
     public List<MyFriendsVo> queryMyFriends(String userId) {
         return usersMapperCustom.queryMyFriends(userId);
+    }
+
+    @Override
+    public String saveMsg(ChatMsg chatMsg) {
+        com.cl.pojo.ChatMsg msgDB = new com.cl.pojo.ChatMsg();
+        String msgId = sid.nextShort();
+        msgDB.setId(msgId);
+        msgDB.setAcceptUserId(chatMsg.getReceiverId());
+        msgDB.setSendUserId(chatMsg.getSenderId());
+        msgDB.setCreateTime(new Date());
+        msgDB.setSignFlag(MsgSignFlagEnum.unsign.type);
+        msgDB.setMsg(chatMsg.getMsg());
+
+        chatMsgMapper.insert(msgDB);
+
+        return msgId;
+    }
+
+    @Override
+    public void updateMsgSigned(List<String> msgIdList) {
+        usersMapperCustom.batchUpdateMsgSigned(msgIdList);
+    }
+
+    @Override
+    public List<com.cl.pojo.ChatMsg> getUnReadMsgList(String acceptUserId) {
+        List<com.cl.pojo.ChatMsg> result = chatMsgMapper.getUnReadMsgListByAcceptUid(acceptUserId);
+        return result;
     }
 
     /* @Override

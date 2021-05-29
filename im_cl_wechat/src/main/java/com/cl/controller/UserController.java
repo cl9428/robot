@@ -67,7 +67,7 @@ public class UserController {
     }
 
     @RequestMapping("/uploadFace")
-    //用户上传头像
+    //用户头像
     public JSONResult uploadFace(@RequestBody UserFace userFace) throws Exception {
         //获取前端传过来的base64的图片字符串，然后转为文件对象上传
         String base64face = userFace.getUserFace();

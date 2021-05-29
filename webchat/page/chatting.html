@@ -146,7 +146,7 @@
 						var dataContent = new app.DataContent(app.CHAT,chatMsg,null);
 						
 						//调用websocket 发送消息到netty后端
-						var wsWebview = plus.webview.getWebviewById("bird-chatlist.html");
+						var wsWebview = plus.webview.getWebviewById("webchat.html");
 						wsWebview.evalJS("CHAT.chat('"+JSON.stringify(dataContent)+"')");
 						
 						//保存聊天历史记录到本地缓存
@@ -154,7 +154,7 @@
 						//保存聊天快照到本地缓存
 						app.saveUserChatSnapshot(me.id,friendUserId,msg_text_content,true);
 						//接受或回复消息
-						//receiveMsg("假装回复消息");
+						receiveMsg("假装回复消息");
 						
 					});
 					

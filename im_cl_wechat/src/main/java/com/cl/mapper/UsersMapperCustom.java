@@ -16,4 +16,8 @@ public interface UsersMapperCustom {
     //好友列表查询
     List<MyFriendsVo> queryMyFriends(String userId);
 
+    void batchUpdateMsgSigned(List<String> msgIdList);
+
+
+
 }

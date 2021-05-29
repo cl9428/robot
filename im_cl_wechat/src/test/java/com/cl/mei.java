@@ -1,6 +1,7 @@
 package com.cl;
 
 import java.util.Scanner;
+import java.util.UUID;
 
 public class mei {
     public static void main(String[] args) {
@@ -23,7 +24,16 @@ public class mei {
 
 
         System.out.println(count);
+        System.out.println(getUUID());
     }
+
+    public static String getUUID(){
+        UUID uuid=UUID.randomUUID();
+        String str = uuid.toString();
+        String uuidStr=str.replace("-", "");
+        return uuidStr;
+    }
+
 }
 
 //abcdefghijklmnopqrstuvwxyz
